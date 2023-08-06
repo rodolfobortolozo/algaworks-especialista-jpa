@@ -17,8 +17,6 @@ public class IniciarUnidadeDePersistencia {
 
     System.out.println(produto.getDescricao());
 
-    // Assistir 2.05
-
     entityManager.close();
     entityManagerFactory.close();
   }
