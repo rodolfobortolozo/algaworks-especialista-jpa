@@ -1,7 +1,11 @@
 package com.algaworks.ecommerce.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,18 +19,25 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Produto {
+public class Pedido {
 
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @EqualsAndHashCode.Include
   @Id
   private Integer id;
 
-  private String nome;
+  private LocalDateTime dataPedido;
 
-  private String descricao;
+  private LocalDateTime dataConclusao;
 
-  private BigDecimal preco;
+  private String notaFiscalId;
 
+  private BigDecimal total;
+
+  @Enumerated(EnumType.STRING)
+  private StatusPedido statusPedido;
+
+  @Embedded
+  private EnderecoEntregaPedido enderecoEntrega;
 
 }

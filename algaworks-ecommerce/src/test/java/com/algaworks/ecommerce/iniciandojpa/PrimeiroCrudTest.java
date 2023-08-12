@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import com.algaworks.ecommerce.model.Cliente;
+import com.algaworks.ecommerce.model.SexoCliente;
 
 public class PrimeiroCrudTest extends EntityManagerTest {
 
@@ -12,8 +13,8 @@ public class PrimeiroCrudTest extends EntityManagerTest {
   @Order(1)
   public void cadastrarCliente() {
 
-    Cliente cliente1 = new Cliente(1, "Alessandra");
-    Cliente cliente2 = new Cliente(2, "Rodolfo");
+    Cliente cliente1 = new Cliente(null, "Alessandra", SexoCliente.FEMININO);
+    Cliente cliente2 = new Cliente(null, "Rodolfo", SexoCliente.MASCULINO);
 
     entityManager.getTransaction().begin();
     entityManager.persist(cliente1);
@@ -22,8 +23,8 @@ public class PrimeiroCrudTest extends EntityManagerTest {
 
     entityManager.clear();
 
-    Cliente clienteSalvo1 = entityManager.find(Cliente.class, 1);
-    Cliente clienteSalvo2 = entityManager.find(Cliente.class, 2);
+    Cliente clienteSalvo1 = entityManager.find(Cliente.class, cliente1.getId());
+    Cliente clienteSalvo2 = entityManager.find(Cliente.class, cliente2.getId());
 
     assertNotNull(clienteSalvo1);
     assertNotNull(clienteSalvo2);

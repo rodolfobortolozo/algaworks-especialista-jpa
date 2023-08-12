@@ -14,7 +14,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
   @DisplayName("Inserir Registro")
   public void inserirPrimeiroObjeto() {
     Produto produto =
-        new Produto(2, "Camera Samsung", "Melhor Camera do Mercado", BigDecimal.valueOf(1000));
+        new Produto(null, "Camera Samsung", "Melhor Camera do Mercado", BigDecimal.valueOf(1000));
 
     entityManager.getTransaction().begin();
     entityManager.persist(produto);
@@ -46,17 +46,17 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
   public void atualizarObjeto() {
 
     Produto produto =
-        new Produto(1, "Kindle PaperWhite", "Conheça o novo Kindle", BigDecimal.valueOf(123456));
+        new Produto(null, "Kindle PaperWhite", "Conheça o novo Kindle", BigDecimal.valueOf(123456));
 
     entityManager.getTransaction().begin();
-    entityManager.merge(produto);
+    Produto produtosalvo = entityManager.merge(produto);
     entityManager.getTransaction().commit();
 
     entityManager.clear();
 
-    Produto produtoVerificacao = entityManager.find(Produto.class, 1);
+    Produto produtoVerificacao = entityManager.find(Produto.class, produtosalvo.getId());
     assertNotNull(produtoVerificacao);
-    assertEquals(produtoVerificacao, produto);
+    assertEquals(produtoVerificacao.getNome(), produto.getNome());
 
   }
 
@@ -82,15 +82,19 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
   @Test
   @DisplayName("Inserir Registro com Merge")
   public void inserirObjetocomMerge() {
-    Produto produto = new Produto(4, "Microfone", "Microfone de Capela", BigDecimal.valueOf(12));
+    Produto produto = new Produto();
+
+    produto.setNome("Microfone");
+    produto.setDescricao("Microfone de Capela");
+    produto.setPreco(BigDecimal.valueOf(12));
 
     entityManager.getTransaction().begin();
-    entityManager.merge(produto);
+    Produto produtoSalvo = entityManager.merge(produto);
     entityManager.getTransaction().commit();
 
     entityManager.clear(); // Limpa a memória para forçar a consulta no banco de dados
 
-    Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
+    Produto produtoVerificacao = entityManager.find(Produto.class, produtoSalvo.getId());
     assertNotNull(produtoVerificacao);
 
   }

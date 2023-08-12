@@ -1,6 +1,7 @@
 package com.algaworks.ecommerce.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,18 +16,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Produto {
+public class ItemPedido {
 
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @EqualsAndHashCode.Include
   @Id
   private Integer id;
 
-  private String nome;
+  private LocalDateTime dataPedido;
 
-  private String descricao;
+  private LocalDateTime daaConclusao;
 
-  private BigDecimal preco;
+  private Integer notaFiscalId;
 
+  private BigDecimal total;
+
+  private StatusPedido stauts;
 
 }

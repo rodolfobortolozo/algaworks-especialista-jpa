@@ -1,6 +1,5 @@
 package com.algaworks.ecommerce.model;
 
-import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Produto {
+public class Categoria {
 
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @EqualsAndHashCode.Include
@@ -24,9 +23,7 @@ public class Produto {
 
   private String nome;
 
-  private String descricao;
-
-  private BigDecimal preco;
+  private Integer categoriaPaiId;
 
 
 }
